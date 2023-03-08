@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { useDispatch } from 'react-redux'
 import ImageSelector from '../components/ImageSelector'
+import LocationSelector from '../components/LocationSelector'
 import Colors from '../constants/Colors'
 import { addPlace } from '../store/places.actions'
 
@@ -16,11 +17,12 @@ const NewPlaceScreen = ({ navigation }) => {
     const dispatch = useDispatch()
     const [title, setTitle] = useState("")
     const [image, setImage] = useState()
+    const [location, setLocation] = useState()
 
     const handleTitleChange = text => setTitle(text)
 
     const handleSave = () => {
-        dispatch(addPlace(title, image))
+        dispatch(addPlace(title, image, location))
         navigation.navigate("Direcciones")
     }
 
@@ -30,6 +32,7 @@ const NewPlaceScreen = ({ navigation }) => {
                 <Text style={styles.label}>Titulo</Text>
                 <TextInput style={styles.input} onChangeText={handleTitleChange}/>
                 <ImageSelector onImage={setImage} />
+                <LocationSelector onLocation={setLocation}/>
                 <Button 
                 title= "Guardar Direccion"
                 color={Colors.MAROON}
