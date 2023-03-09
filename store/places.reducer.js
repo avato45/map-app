@@ -1,4 +1,4 @@
-import {ADD_PLACE} from './places.actions'
+import { ADD_PLACE } from './places.actions'
 import Place from '../models/Place'
 
 const initialState = {

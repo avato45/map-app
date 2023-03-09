@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Button, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import * as Location from 'expo-location'
@@ -9,6 +9,14 @@ import MapPreview from './MapPreview'
 const LocationSelector = (props) => {
   const navigation = useNavigation()
   const [pickedLocation, setPickedLocation] = useState()
+
+  useEffect(() => {
+    if(props.mapLocation) {
+      setPickedLocation(props.mapLocation)
+      props.onLocation=(props.mapLocation)
+    }
+  }, [props.mapLocation])
+  
 
   const verifyPermissions = async () => {
     const { status } =await Location.requestForegroundPermissionsAsync()

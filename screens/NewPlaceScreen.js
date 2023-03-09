@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { 
     View,
     Text,
@@ -13,11 +13,15 @@ import LocationSelector from '../components/LocationSelector'
 import Colors from '../constants/Colors'
 import { addPlace } from '../store/places.actions'
 
-const NewPlaceScreen = ({ navigation }) => {
+const NewPlaceScreen = ({ navigation, route }) => {
     const dispatch = useDispatch()
     const [title, setTitle] = useState("")
     const [image, setImage] = useState()
     const [location, setLocation] = useState()
+
+    useEffect(() => {
+      console.log(route, "Nueva ubicacion")
+    }, [route])
 
     const handleTitleChange = text => setTitle(text)
 
@@ -32,7 +36,10 @@ const NewPlaceScreen = ({ navigation }) => {
                 <Text style={styles.label}>Titulo</Text>
                 <TextInput style={styles.input} onChangeText={handleTitleChange}/>
                 <ImageSelector onImage={setImage} />
-                <LocationSelector onLocation={setLocation}/>
+                <LocationSelector 
+                    onLocation={setLocation} 
+                    mapLocation={route?.params?.mapLocation}
+                />
                 <Button 
                 title= "Guardar Direccion"
                 color={Colors.MAROON}
